@@ -12,6 +12,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
+import Link from 'next/link'; // Import Link from Next.js
 
 type RowObj = {
   turbine: string; // Change deviceName to turbine
@@ -82,9 +83,11 @@ function CheckTable(props: { tableData: any }) {
         </p> // Change header to TURBINE
       ),
       cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
+        <Link href={`/admin/voltage?name=${info.getValue()}`}>
+          <p className="cursor-pointer text-sm font-bold text-navy-700 dark:text-white">
+            {info.getValue()}
+          </p>
+        </Link>
       ),
     }),
     columnHelper.accessor('location', {
