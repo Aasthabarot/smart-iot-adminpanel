@@ -16,7 +16,7 @@ import {
 type RowObj = {
   turbine: string;  // Change deviceName to turbine
   location: string;
-  stationPoint: string;
+  Serialnumber: string;
   chargerPoint: string;
   status: "online" | "offline";
 };
@@ -28,16 +28,12 @@ function CheckTable(props: { tableData: any }) {
 
   // Static data for devices (10 entries), change deviceName to turbine
   const staticData: RowObj[] = [
-    { turbine: "Turbine 1", location: "Location 1", stationPoint: "Station 1", chargerPoint: "Charger 1", status: "online" },
-    { turbine: "Turbine 2", location: "Location 2", stationPoint: "Station 2", chargerPoint: "Charger 2", status: "offline" },
-    { turbine: "Turbine 3", location: "Location 3", stationPoint: "Station 3", chargerPoint: "Charger 3", status: "online" },
-    { turbine: "Turbine 4", location: "Location 4", stationPoint: "Station 4", chargerPoint: "Charger 4", status: "offline" },
-    { turbine: "Turbine 5", location: "Location 5", stationPoint: "Station 5", chargerPoint: "Charger 5", status: "online" },
-    { turbine: "Turbine 6", location: "Location 6", stationPoint: "Station 6", chargerPoint: "Charger 6", status: "offline" },
-    { turbine: "Turbine 7", location: "Location 7", stationPoint: "Station 7", chargerPoint: "Charger 7", status: "online" },
-    { turbine: "Turbine 8", location: "Location 8", stationPoint: "Station 8", chargerPoint: "Charger 8", status: "offline" },
-    { turbine: "Turbine 9", location: "Location 9", stationPoint: "Station 9", chargerPoint: "Charger 9", status: "online" },
-    { turbine: "Turbine 10", location: "Location 10", stationPoint: "Station 10", chargerPoint: "Charger 10", status: "offline" },
+    { turbine: "IESO", location: "Sault Site", Serialnumber: "56362323", chargerPoint: "Charger 1", status: "online" },
+    { turbine: "Collectdev LP", location: "Toronto Street", Serialnumber: "42232233", chargerPoint: "Charger 2", status: "offline" },
+    { turbine: "33 Isabella Street", location: "Isabella Street", Serialnumber: "67834043", chargerPoint: "Charger 3", status: "online" },
+    { turbine: "IESO", location: "Coalex Street", Serialnumber: "34234223", chargerPoint: "Charger 4", status: "offline" },
+    { turbine: "IESO", location: "Green Park", Serialnumber: "67342382", chargerPoint: "Charger 5", status: "online" },
+    
   ];
 
   const filteredData = staticData.filter((device) => {
@@ -64,42 +60,32 @@ function CheckTable(props: { tableData: any }) {
         <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
       ),
     }),
-    columnHelper.accessor("stationPoint", {
-      id: "stationPoint",
+    columnHelper.accessor("Serialnumber", {
+      id: "Serialnumber",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">STATION POINT</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">SERIALNUMBER</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
       ),
     }),
-    columnHelper.accessor("chargerPoint", {
-      id: "chargerPoint",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">CHARGER POINT</p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
-      ),
-    }),
+   
     columnHelper.accessor("status", {
       id: "status",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">STATUS</p>
       ),
       cell: (info) => (
-        <div className="flex items-center">
+        <div className="flex items-center text-center">
           {info.getValue() === "online" ? (
-            <FaCircle className="text-green-500 mr-2" />
+            <button className="w-3 h-3 bg-green-500 rounded-full" />
           ) : (
-            <FaCircleNotch className="text-red-500 mr-2" />
+            <button className="w-3 h-3 bg-red-500 rounded-full" />
           )}
-          <p className="text-sm font-bold text-navy-700 dark:text-white">
-            {info.getValue().toUpperCase()}
-          </p>
         </div>
       ),
     }),
+    
   ];
 
   const [data, setData] = React.useState(() => [...filteredData]);
@@ -120,7 +106,7 @@ function CheckTable(props: { tableData: any }) {
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          Device Table  {/* Change table name to Turbine Table */}
+          Turbine Table  {/* Change table name to Turbine Table */}
         </div>
         <CardMenu />
       </header>

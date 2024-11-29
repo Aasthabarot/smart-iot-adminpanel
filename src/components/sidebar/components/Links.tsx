@@ -20,7 +20,7 @@ export const SidebarLinks = (): JSX.Element => {
     {
       layout: '/admin',
       path: 'default',
-      name: 'Main Dashboard',
+      name: 'Dashboard',
       icon: <FaTachometerAlt />,
     },
     {
@@ -37,8 +37,8 @@ export const SidebarLinks = (): JSX.Element => {
     },
     {
       layout: '/admin',
-      path: 'Menu',
-      name: 'Menu',
+      path: 'LogOut',
+      name: 'LogOut',
       icon: <FaDesktop />,
     },
   ];
