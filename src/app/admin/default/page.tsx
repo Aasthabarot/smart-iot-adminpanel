@@ -24,7 +24,7 @@ const chartData = [
     title: 'Turbine',
     data: [130, 441, 30],
     labels: ['All', 'Online', 'Offline'],
-    colors: ['#808080', '#59E659', '#FF7F50'],
+    colors: ['#404040', '#59E659', '#FF7F50'],
     icon: <FaWind className="text-4xl text-gray-800 dark:text-white" />,
     showChart: true,
   },
@@ -32,7 +32,7 @@ const chartData = [
     title: 'Stations',
     data: [330, 13, 461],
     labels: ['In Use', 'Not In Use', 'Offline'],
-    colors: ['#808080', '#FF7F50', '#59E659'],
+    colors: ['#404040', '#FF7F50', '#59E659'],
     icon: (
       <FaChargingStation className="text-4xl text-gray-800 dark:text-white" />
     ),
@@ -42,7 +42,7 @@ const chartData = [
     title: 'Connectors',
     data: [130, 21, 461],
     labels: ['Available', 'In Use', 'Unavailable'],
-    colors: ['#808080', '#FF7F50', '#59E659'],
+    colors: ['#404040', '#FF7F50', '#59E659'],
     icon: <FaPlug className="text-4xl text-gray-800 dark:text-white" />,
     showChart: true,
   },
