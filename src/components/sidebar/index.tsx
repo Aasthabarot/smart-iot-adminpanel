@@ -1,44 +1,48 @@
 /* eslint-disable */
-
 import { HiX } from 'react-icons/hi';
-import Links from './components/Links';
+import SidebarLinks from './components/Links'; // Import SidebarLinks component
 
-import SidebarCard from 'components/sidebar/components/SidebarCard';
-import { IRoute } from 'types/navigation';
+interface SidebarHorizonProps {
+  open: boolean; // Indicates whether the sidebar is open or not
+  setOpen: (open: boolean) => void; // Function to set the sidebar open state
+}
 
-function SidebarHorizon(props: { routes: IRoute[]; [x: string]: any }) {
-  const { routes, open, setOpen } = props;
+function SidebarHorizon({ open, setOpen }: SidebarHorizonProps) {
   return (
     <div
-      className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
-        open ? 'translate-x-0' : '-translate-x-96 xl:translate-x-0'
+      className={`duration-175 linear fixed z-50 flex min-h-full flex-col bg-white pb-10 shadow-lg shadow-gray-500/50 transition-all dark:bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
+        open ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'
       }`}
     >
+      {/* Close Button */}
       <span
-        className="absolute right-4 top-4 block cursor-pointer xl:hidden"
+        className="absolute right-4 top-4 block cursor-pointer xl:hidden text-white hover:text-gray-300"
         onClick={() => setOpen(false)}
       >
-        <HiX />
+        <HiX size={28} />
       </span>
 
-      <div className={`mx-[56px] mt-[50px] flex items-center`}>
-        <div className="ml-1 mt-1 h-2.5 font-poppins text-[26px] font-bold uppercase text-navy-700 dark:text-white">
-          Horizon <span className="font-medium">FREE</span>
+      {/* Sidebar Header with Logo */}
+      <div className="mx-8 mt-8 flex items-center justify-center">
+        <div className="mr-3">
+          <img
+            src="/Enercea-logo.webp" // Path to your logo
+            alt="Enercea Logo"
+            className="h-[90px]" // Logo size increased
+          />
         </div>
       </div>
-      <div className="mb-7 mt-[58px] h-px bg-gray-300 dark:bg-white/30" />
-      {/* Nav item */}
 
-      <ul className="mb-auto pt-1">
-        <Links routes={routes} />
+      {/* Navigation Links Section */}
+      <ul className="mb-auto pt-6 space-y-6 px-6">
+        {/* Integrating SidebarLinks component here */}
+        <SidebarLinks />
       </ul>
 
-      {/* Free Horizon Card */}
-      <div className="flex justify-center">
+      {/* Optional Free Horizon Card */}
+      {/* <div className="flex justify-center mt-8">
         <SidebarCard />
-      </div>
-
-      {/* Nav item end */}
+      </div> */}
     </div>
   );
 }

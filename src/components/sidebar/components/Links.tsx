@@ -1,18 +1,13 @@
 /* eslint-disable */
-import React from 'react';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import NavLink from 'components/link/NavLink';
-import DashIcon from 'components/icons/DashIcon';
-// chakra imports
+import { FaTachometerAlt, FaCogs, FaDesktop, FaChartLine } from 'react-icons/fa';
 
-export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
-  // Chakra color mode
+export const SidebarLinks = (): JSX.Element => {
   const pathname = usePathname();
 
-  const { routes } = props;
-
-  // verifies if routeName is the one active (in browser input)
+  // Function to check if the route is active
   const activeRoute = useCallback(
     (routeName: string) => {
       return pathname?.includes(routeName);
@@ -20,50 +15,70 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
     [pathname],
   );
 
-  const createLinks = (routes: RoutesType[]) => {
+  // Define the routes
+  const newRoutes = [
+    {
+      layout: '/admin',
+      path: 'default',
+      name: 'Main Dashboard',
+      icon: <FaTachometerAlt />,
+    },
+    {
+      layout: '/admin',
+      path: 'analytics',
+      name: 'Analytics',
+      icon: <FaChartLine />,
+    },
+    {
+      layout: '/admin',
+      path: 'asset',
+      name: 'Assets',
+      icon: <FaCogs />,
+    },
+    {
+      layout: '/admin',
+      path: 'devices',
+      name: 'Devices',
+      icon: <FaDesktop />,
+    },
+  ];
+
+  // Create the links for the routes
+  const createLinks = (routes: typeof newRoutes) => {
     return routes.map((route, index) => {
-      if (
-        route.layout === '/admin' ||
-        route.layout === '/auth' ||
-        route.layout === '/rtl'
-      ) {
-        return (
-          <NavLink key={index} href={route.layout + '/' + route.path}>
-            <div className="relative mb-3 flex hover:cursor-pointer">
-              <li
-                className="my-[3px] flex cursor-pointer items-center px-8"
-                key={index}
+      const isActive = activeRoute(route.path);
+
+      return (
+        <NavLink key={index} href={route.layout + '/' + route.path}>
+          <div className="relative mb-3 flex hover:cursor-pointer">
+            <li className="my-[3px] flex cursor-pointer items-center px-8">
+              <span
+                className={`${
+                  isActive ? 'text-[#156082]' : 'text-gray-600'
+                }`}
               >
-                <span
-                  className={`${
-                    activeRoute(route.path) === true
-                      ? 'font-bold text-brand-500 dark:text-white'
-                      : 'font-medium text-gray-600'
-                  }`}
-                >
-                  {route.icon ? route.icon : <DashIcon />}{' '}
-                </span>
-                <p
-                  className={`leading-1 ml-4 flex ${
-                    activeRoute(route.path) === true
-                      ? 'font-bold text-navy-700 dark:text-white'
-                      : 'font-medium text-gray-600'
-                  }`}
-                >
-                  {route.name}
-                </p>
-              </li>
-              {activeRoute(route.path) ? (
-                <div className="absolute right-0 top-px h-9 w-1 rounded-lg bg-brand-500 dark:bg-brand-400" />
-              ) : null}
-            </div>
-          </NavLink>
-        );
-      }
+                {route.icon}
+              </span>
+              <p
+                className={`leading-1 ml-4 flex ${
+                  isActive
+                    ? 'font-bold text-[#156082]'
+                    : 'font-medium text-gray-600'
+                } hover:text-[#156082]`}
+              >
+                {route.name}
+              </p>
+            </li>
+            {isActive ? (
+              <div className="absolute right-0 top-px h-9 w-1 rounded-lg bg-[#156082]" />
+            ) : null}
+          </div>
+        </NavLink>
+      );
     });
   };
-  // BRAND
-  return <>{createLinks(routes)}</>;
+
+  return <>{createLinks(newRoutes)}</>;
 };
 
 export default SidebarLinks;

@@ -2,6 +2,7 @@ import React from "react";
 import CardMenu from "components/card/CardMenu";
 import Checkbox from "components/checkbox";
 import Card from "components/card";
+import { FaCircle, FaCircleNotch } from "react-icons/fa"; // Import icons for online/offline status
 
 import {
   createColumnHelper,
@@ -13,74 +14,96 @@ import {
 } from "@tanstack/react-table";
 
 type RowObj = {
-  name: [string, boolean];
-  progress: string;
-  quantity: number;
-  date: string;
+  deviceName: string;
+  location: string;
+  stationPoint: string;
+  chargerPoint: string;
+  status: "online" | "offline";
 };
 
 function CheckTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  const [statusFilter, setStatusFilter] = React.useState<"all" | "online" | "offline">("all");
+
+  // Static data for devices (10 entries)
+  const staticData: RowObj[] = [
+    { deviceName: "Device 1", location: "Location 1", stationPoint: "Station 1", chargerPoint: "Charger 1", status: "online" },
+    { deviceName: "Device 2", location: "Location 2", stationPoint: "Station 2", chargerPoint: "Charger 2", status: "offline" },
+    { deviceName: "Device 3", location: "Location 3", stationPoint: "Station 3", chargerPoint: "Charger 3", status: "online" },
+    { deviceName: "Device 4", location: "Location 4", stationPoint: "Station 4", chargerPoint: "Charger 4", status: "offline" },
+    { deviceName: "Device 5", location: "Location 5", stationPoint: "Station 5", chargerPoint: "Charger 5", status: "online" },
+    { deviceName: "Device 6", location: "Location 6", stationPoint: "Station 6", chargerPoint: "Charger 6", status: "offline" },
+    { deviceName: "Device 7", location: "Location 7", stationPoint: "Station 7", chargerPoint: "Charger 7", status: "online" },
+    { deviceName: "Device 8", location: "Location 8", stationPoint: "Station 8", chargerPoint: "Charger 8", status: "offline" },
+    { deviceName: "Device 9", location: "Location 9", stationPoint: "Station 9", chargerPoint: "Charger 9", status: "online" },
+    { deviceName: "Device 10", location: "Location 10", stationPoint: "Station 10", chargerPoint: "Charger 10", status: "offline" },
+  ];
+
+  const filteredData = staticData.filter((device) => {
+    if (statusFilter === "all") return true;
+    return device.status === statusFilter;
+  });
+
   const columns = [
-    columnHelper.accessor("name", {
-      id: "name",
+    columnHelper.accessor("deviceName", {
+      id: "deviceName",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">DEVICE NAME</p>
       ),
-      cell: (info: any) => (
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
+      ),
+    }),
+    columnHelper.accessor("location", {
+      id: "location",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">LOCATION</p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
+      ),
+    }),
+    columnHelper.accessor("stationPoint", {
+      id: "stationPoint",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">STATION POINT</p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
+      ),
+    }),
+    columnHelper.accessor("chargerPoint", {
+      id: "chargerPoint",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">CHARGER POINT</p>
+      ),
+      cell: (info) => (
+        <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
+      ),
+    }),
+    columnHelper.accessor("status", {
+      id: "status",
+      header: () => (
+        <p className="text-sm font-bold text-gray-600 dark:text-white">STATUS</p>
+      ),
+      cell: (info) => (
         <div className="flex items-center">
-          <Checkbox
-            defaultChecked={info.getValue()[1]}
-            colorScheme="brandScheme"
-            me="10px"
-          />
-          <p className="ml-3 text-sm font-bold text-navy-700 dark:text-white">
-            {info.getValue()[0]}
+          {info.getValue() === "online" ? (
+            <FaCircle className="text-green-500 mr-2" />
+          ) : (
+            <FaCircleNotch className="text-red-500 mr-2" />
+          )}
+          <p className="text-sm font-bold text-navy-700 dark:text-white">
+            {info.getValue().toUpperCase()}
           </p>
         </div>
       ),
     }),
-    columnHelper.accessor("progress", {
-      id: "progress",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          PROGRESS
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("quantity", {
-      id: "quantity",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          QUANTITY
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("date", {
-      id: "date",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-  ]; // eslint-disable-next-line
-  const [data, setData] = React.useState(() => [...defaultData]);
+  ];
+
+  const [data, setData] = React.useState(() => [...filteredData]);
+
   const table = useReactTable({
     data,
     columns,
@@ -92,15 +115,37 @@ function CheckTable(props: { tableData: any }) {
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
   });
+
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          Check Table
+          Device Table
         </div>
-
         <CardMenu />
       </header>
+
+      {/* Filter Buttons centered with no background and gray border */}
+      <div className="flex justify-center space-x-4 mt-4">
+        <button
+          className="px-6 py-2 border border-gray-400 text-gray-600 rounded-md hover:bg-gray-100"
+          onClick={() => setStatusFilter("all")}
+        >
+          All
+        </button>
+        <button
+          className="px-6 py-2 border border-gray-400 text-green-600 rounded-md hover:bg-gray-100"
+          onClick={() => setStatusFilter("online")}
+        >
+          Online
+        </button>
+        <button
+          className="px-6 py-2 border border-gray-400 text-red-600 rounded-md hover:bg-gray-100"
+          onClick={() => setStatusFilter("offline")}
+        >
+          Offline
+        </button>
+      </div>
 
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
         <table className="w-full">
@@ -120,10 +165,6 @@ function CheckTable(props: { tableData: any }) {
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                        {{
-                          asc: "",
-                          desc: "",
-                        }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     </th>
                   );
@@ -142,7 +183,7 @@ function CheckTable(props: { tableData: any }) {
                       return (
                         <td
                           key={cell.id}
-                          className="min-w-[150px] border-white/0 py-3  pr-4"
+                          className="min-w-[150px] border-white/0 py-3 pr-4"
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
