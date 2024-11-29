@@ -2,7 +2,12 @@
 import React, { useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import NavLink from 'components/link/NavLink';
-import { FaTachometerAlt, FaCogs, FaDesktop, FaChartLine } from 'react-icons/fa';
+import {
+  FaTachometerAlt,
+  FaCogs,
+  FaDesktop,
+  FaChartLine,
+} from 'react-icons/fa';
 
 export const SidebarLinks = (): JSX.Element => {
   const pathname = usePathname();
@@ -20,25 +25,25 @@ export const SidebarLinks = (): JSX.Element => {
     {
       layout: '/admin',
       path: 'default',
-      name: 'Main Dashboard',
+      name: 'Dashboard',
       icon: <FaTachometerAlt />,
     },
     {
       layout: '/admin',
-      path: 'analytics',
-      name: 'Analytics',
+      path: 'voltage',
+      name: 'Analytics/Reporting',
       icon: <FaChartLine />,
     },
     {
       layout: '/admin',
-      path: 'asset',
-      name: 'Assets',
+      path: 'users',
+      name: 'Administration',
       icon: <FaCogs />,
     },
     {
-      layout: '/admin',
-      path: 'devices',
-      name: 'Devices',
+      layout: '/login',
+      path: '.',
+      name: 'Logout',
       icon: <FaDesktop />,
     },
   ];
@@ -53,9 +58,7 @@ export const SidebarLinks = (): JSX.Element => {
           <div className="relative mb-3 flex hover:cursor-pointer">
             <li className="my-[3px] flex cursor-pointer items-center px-8">
               <span
-                className={`${
-                  isActive ? 'text-[#156082]' : 'text-gray-600'
-                }`}
+                className={`${isActive ? 'text-[#156082]' : 'text-gray-600'}`}
               >
                 {route.icon}
               </span>
