@@ -31,14 +31,14 @@ export const SidebarLinks = (): JSX.Element => {
     },
     {
       layout: '/admin',
-      path: 'asset',
-      name: 'Assets',
+      path: 'Administration',
+      name: 'Administration',
       icon: <FaCogs />,
     },
     {
       layout: '/admin',
-      path: 'devices',
-      name: 'Devices',
+      path: 'Menu',
+      name: 'Menu',
       icon: <FaDesktop />,
     },
   ];

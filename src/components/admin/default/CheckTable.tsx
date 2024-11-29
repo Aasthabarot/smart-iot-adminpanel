@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-table";
 
 type RowObj = {
-  deviceName: string;
+  turbine: string;  // Change deviceName to turbine
   location: string;
   stationPoint: string;
   chargerPoint: string;
@@ -26,18 +26,18 @@ function CheckTable(props: { tableData: any }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [statusFilter, setStatusFilter] = React.useState<"all" | "online" | "offline">("all");
 
-  // Static data for devices (10 entries)
+  // Static data for devices (10 entries), change deviceName to turbine
   const staticData: RowObj[] = [
-    { deviceName: "Device 1", location: "Location 1", stationPoint: "Station 1", chargerPoint: "Charger 1", status: "online" },
-    { deviceName: "Device 2", location: "Location 2", stationPoint: "Station 2", chargerPoint: "Charger 2", status: "offline" },
-    { deviceName: "Device 3", location: "Location 3", stationPoint: "Station 3", chargerPoint: "Charger 3", status: "online" },
-    { deviceName: "Device 4", location: "Location 4", stationPoint: "Station 4", chargerPoint: "Charger 4", status: "offline" },
-    { deviceName: "Device 5", location: "Location 5", stationPoint: "Station 5", chargerPoint: "Charger 5", status: "online" },
-    { deviceName: "Device 6", location: "Location 6", stationPoint: "Station 6", chargerPoint: "Charger 6", status: "offline" },
-    { deviceName: "Device 7", location: "Location 7", stationPoint: "Station 7", chargerPoint: "Charger 7", status: "online" },
-    { deviceName: "Device 8", location: "Location 8", stationPoint: "Station 8", chargerPoint: "Charger 8", status: "offline" },
-    { deviceName: "Device 9", location: "Location 9", stationPoint: "Station 9", chargerPoint: "Charger 9", status: "online" },
-    { deviceName: "Device 10", location: "Location 10", stationPoint: "Station 10", chargerPoint: "Charger 10", status: "offline" },
+    { turbine: "Turbine 1", location: "Location 1", stationPoint: "Station 1", chargerPoint: "Charger 1", status: "online" },
+    { turbine: "Turbine 2", location: "Location 2", stationPoint: "Station 2", chargerPoint: "Charger 2", status: "offline" },
+    { turbine: "Turbine 3", location: "Location 3", stationPoint: "Station 3", chargerPoint: "Charger 3", status: "online" },
+    { turbine: "Turbine 4", location: "Location 4", stationPoint: "Station 4", chargerPoint: "Charger 4", status: "offline" },
+    { turbine: "Turbine 5", location: "Location 5", stationPoint: "Station 5", chargerPoint: "Charger 5", status: "online" },
+    { turbine: "Turbine 6", location: "Location 6", stationPoint: "Station 6", chargerPoint: "Charger 6", status: "offline" },
+    { turbine: "Turbine 7", location: "Location 7", stationPoint: "Station 7", chargerPoint: "Charger 7", status: "online" },
+    { turbine: "Turbine 8", location: "Location 8", stationPoint: "Station 8", chargerPoint: "Charger 8", status: "offline" },
+    { turbine: "Turbine 9", location: "Location 9", stationPoint: "Station 9", chargerPoint: "Charger 9", status: "online" },
+    { turbine: "Turbine 10", location: "Location 10", stationPoint: "Station 10", chargerPoint: "Charger 10", status: "offline" },
   ];
 
   const filteredData = staticData.filter((device) => {
@@ -46,10 +46,10 @@ function CheckTable(props: { tableData: any }) {
   });
 
   const columns = [
-    columnHelper.accessor("deviceName", {
-      id: "deviceName",
+    columnHelper.accessor("turbine", {  // Change deviceName to turbine
+      id: "turbine",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">DEVICE NAME</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">TURBINE</p>  // Change header to TURBINE
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">{info.getValue()}</p>
@@ -120,7 +120,7 @@ function CheckTable(props: { tableData: any }) {
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          Device Table
+          Device Table  {/* Change table name to Turbine Table */}
         </div>
         <CardMenu />
       </header>
@@ -203,4 +203,5 @@ function CheckTable(props: { tableData: any }) {
 }
 
 export default CheckTable;
+
 const columnHelper = createColumnHelper<RowObj>();
