@@ -21,7 +21,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 // Data configuration
 const chartData = [
   {
-    title: 'Turbine',
+    title: 'Assets',
     data: [130, 441, 30],
     labels: ['All', 'Online', 'Offline'],
     colors: ['#404040', '#59E659', '#FF7F50'],
@@ -39,7 +39,7 @@ const chartData = [
     showChart: true,
   },
   {
-    title: 'Connectors',
+    title: 'Voltage generation',
     data: [130, 21, 461],
     labels: ['Available', 'In Use', 'Unavailable'],
     colors: ['#404040', '#FF7F50', '#59E659'],
